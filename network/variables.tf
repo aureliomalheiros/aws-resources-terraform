@@ -3,7 +3,7 @@ variable "cidr_block_vpc" {
   type        = string
 }
 
-variable "enabled_dns_support" {
+variable "enable_dns_support" {
   description = "Whether to enable DNS support"
   type        = bool
   default     = true
