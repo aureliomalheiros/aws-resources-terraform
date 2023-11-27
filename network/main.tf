@@ -15,6 +15,5 @@ resource "aws_subnet" "subnet" {
 //Internet Gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
-
-  tags = var.tags
+  tags   = var.tags
 }
