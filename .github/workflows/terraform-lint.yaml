@@ -6,7 +6,7 @@ on:
 
 jobs:
   delivery:
-    runs-on: ubuntu-latest
+    runs-on: ghcr.io/antonbabenko/pre-commit-terraform:latest
 
     steps:
     - name: Use Node.js 16
@@ -16,14 +16,15 @@ jobs:
 
     - name: Check out code
       uses: actions/checkout@v2
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
     
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -check -diff -recursive -no-color
+    - name: Run pre-commit
+      run: |
+        pre-commit run --all-files
     
-    - name: Terraform validate
-      id: validate
-      run: terraform validate -no-color
+    - name: Pre commit terraform fmt
+      run: |
+        terraform fmt -check=true -diff=true -recursive
+      
+    - name: Pre commit terraform tflint
+      run: |
+        tflint --deep --enable-rule=terraform_unused_declarations --enable-rule=terraform_unused_variables --enable-rule=terraform_deprecated_interpolation --enable-rule=terraform_documented_variables --enable-rule=terraform_documented_outputs --enable-rule=terraform_documented_inputs --enable-rule=te
