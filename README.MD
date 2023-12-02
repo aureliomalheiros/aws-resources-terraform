@@ -1,6 +1,9 @@
 ## Requirements
 
-No requirements.
+
+## K8S
+
+I created folders to apply resources.
 
 ## Providers
 
