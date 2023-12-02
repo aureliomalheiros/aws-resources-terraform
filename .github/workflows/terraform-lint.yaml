@@ -6,10 +6,14 @@ on:
 
 jobs:
   delivery:
-
     runs-on: ubuntu-latest
 
     steps:
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
     - name: Check out code
       uses: actions/checkout@v2
 
