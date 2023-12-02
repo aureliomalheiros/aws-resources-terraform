@@ -1,0 +1,29 @@
+name: terraform-lint
+
+on:
+    push:
+        branches: main
+
+jobs:
+  delivery:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@main
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+    
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check -recursive
+    
+    - name: Terraform init
+      id: init
+      run: terraform init
+    
+    - name: Terraform validate
+      id: validate
+      run: terraform validate -no-color
