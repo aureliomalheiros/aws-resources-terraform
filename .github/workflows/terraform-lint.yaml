@@ -1,19 +1,23 @@
-name: terraform-lint
+name: Pre-commit Terraform
 
 on:
-    push:
-        branches: main
+  push:
+    branches: main
 
 jobs:
-  terraform-testing:
+  pre-commit:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: hashicorp/setup-terraform@v3
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          terraform_version: "1.1.7"
-      
-      
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt --recursive -check
+          python-version: 3.9
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files
