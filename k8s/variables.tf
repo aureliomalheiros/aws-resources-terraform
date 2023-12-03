@@ -2,7 +2,7 @@ variable "associate_public_ip_address" {
   description = "Associate a public ip address with an instance in a VPC"
   type        = bool
   default     = true
-  
+
 }
 variable "key_name" {
   description = "The key name to use for the instance"

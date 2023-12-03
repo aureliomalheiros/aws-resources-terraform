@@ -11,7 +11,7 @@ resource "aws_instance" "k8s_instance" {
     enable_resource_name_dns_a_record = true
   }
   security_groups = [data.aws_security_group.k8s.id]
-  key_name      = var.key_name
+  key_name          = var.key_name
   instance_type = var.instance_type
-  tags          = var.tags_instance
+  tags    = var.tags_instance
 }
