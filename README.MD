@@ -1,7 +1,8 @@
 ## Requirements
 
-
-## K8S
+---
+**K8S**
+---
 
 I created folders to apply resources.
 
@@ -42,3 +43,39 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | n/a |
+
+
+## Example
+
+```terraform
+module "k8s" {
+  source            = "git@github.com:aureliomalheiros/aws-modules-terraform.git//k8s/"
+  count             = #NUMBERS OF INSTANCES
+  key_name          = "KEY_NAME.PEM"
+  availability_zone = "us-east-1a"
+  instance_type     = "INSTANCE_TYPE"
+  tags_instance     = { 
+    #YOUR TAGS
+  }
+}
+
+```
+
+> [!Important]
+> In tags you can use directaly in module, but its possible create file varibles.tf or vars.tfvars
+
+For example:
+
+`variables.tf`
+
+```terraform
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default = {
+    Name        = "YOUR NAME"
+    Environment = "Dev"
+    Created     = "Tribix"
+  }
+}
+```
