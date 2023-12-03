@@ -33,6 +33,10 @@ variable "instance_type" {
 
 variable "tags_instance" {
   description = "A mapping of tags to assign to the resource"
-  type        = map(string)
-  default     = {}
+  type        = string
+}
+variable "worker_count" {
+  description = "Number instances of workers"
+  type        = number
+  default     = 1
 }
