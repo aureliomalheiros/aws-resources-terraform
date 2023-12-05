@@ -1,6 +1,10 @@
 ## Requirements
 
 [![Pre-commit Terraform](https://github.com/aureliomalheiros/aws-modules-terraform/actions/workflows/terraform-lint.yaml/badge.svg?branch=main)](https://github.com/aureliomalheiros/aws-modules-terraform/actions/workflows/terraform-lint.yaml)
+[![Release my repository](https://github.com/aureliomalheiros/aws-modules-terraform/actions/workflows/release.yml/badge.svg)](https://github.com/aureliomalheiros/aws-modules-terraform/actions/workflows/release.yml)
+[![Stable Version](https://img.shields.io/github/v/tag/aureliomalheiros/aws-modules-terraform)](https://img.shields.io/github/v/tag/aureliomalheiros/aws-modules-terraform)
+[![Latest Release](https://img.shields.io/github/v/release/aureliomalheiros/aws-modules-terraform?color=%233D9970)](https://img.shields.io/github/v/release/aureliomalheiros/aws-modules-terraform?color=%233D9970)
+
 
 ---
 **K8S**
