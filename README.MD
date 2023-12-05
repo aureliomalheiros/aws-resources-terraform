@@ -53,3 +53,19 @@ No modules.
 | <a name="output_control_plane_public_ip"></a> [control\_plane\_public\_ip](#output\_control\_plane\_public\_ip) | The public IP address of the control plane instance |
 | <a name="output_worker_instance_ids"></a> [worker\_instance\_ids](#output\_worker\_instance\_ids) | The IDs of the worker instances |
 | <a name="output_worker_public_ips"></a> [worker\_public\_ips](#output\_worker\_public\_ips) | The public IP addresses of the worker instances |
+
+## Example
+
+```terraform 
+module "k8s" {
+  source                 = "git@github.com:aureliomalheiros/aws-modules-terraform.git//k8s"
+  worker_count           = NUMEBERS_OF_WORKERS
+  key_name               = "YOUR_PEM"
+  availability_zone      = "us-east-1a"
+  instance_type          = "TYPE"
+  tags_instance          = "CREATE_TAG_OR_TAGS"
+  subnet_id              = "SUBNET_ID"
+  vpc_security_group_ids = ["SG_ID]
+}
+
+```
