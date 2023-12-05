@@ -18,6 +18,7 @@ resource "aws_instance" "k8s_instance_control_plane" {
 
   }
 }
+
 resource "aws_instance" "k8s_instance_workers" {
   ami                         = data.aws_ami.ubuntu.id
   count                       = var.worker_count
