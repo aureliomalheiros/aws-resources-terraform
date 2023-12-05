@@ -40,3 +40,14 @@ variable "worker_count" {
   type        = number
   default     = 1
 }
+
+variable "security_groups" {
+  description = "List of security group IDs to enable on the EC2 instance"
+  type        = list(string)
+  default     = []
+}
+
+variable "subnet_id" {
+  description = "ID of the my subnet"
+  type        = string
+}
