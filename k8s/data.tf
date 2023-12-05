@@ -13,17 +13,3 @@ data "aws_ami" "ubuntu" {
 
 
 }
-
-data "aws_vpc" "main" {
-  tags = {
-    Name = "network-vpc"
-  }
-}
-
-data "aws_subnet" "network_subnet" {
-  id = "subnet-03bda73c3706511b9"
-}
-
-data "aws_security_group" "k8s" {
-  id = "sg-030b02d63f0588700"
-}
