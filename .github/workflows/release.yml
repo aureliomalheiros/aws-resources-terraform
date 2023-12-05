@@ -1,4 +1,4 @@
-name: Release
+name: Release my repository
 on:
   push:
     branches:
@@ -10,13 +10,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: Install dependencies
-        run: npm ci
-      - name: Semantic Release
-        uses: semantic-release/semantic-release@v17
+      - name: Bump version and push tag
+        id: tag_version
+        uses: anothrNick/github-tag-action@1.34.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
