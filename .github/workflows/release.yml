@@ -14,6 +14,6 @@ jobs:
         id: tag_version
         uses: anothrNick/github-tag-action@1.66.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL }}
           WITH_V: true
           DEFAULT_BUMP: patch
