@@ -10,9 +10,9 @@ resource "aws_instance" "k8s_instance_control_plane" {
   private_dns_name_options {
     enable_resource_name_dns_a_record = true
   }
-  security_groups = var.security_groups
-  key_name        = var.key_name
-  instance_type   = var.instance_type
+  vpc_security_group_ids = var.vpc_security_group_ids
+  key_name               = var.key_name
+  instance_type          = var.instance_type
   tags = {
     Name = "k8s-instance-control-plane.aureliomalheiros.tech"
 
@@ -32,9 +32,9 @@ resource "aws_instance" "k8s_instance_workers" {
   private_dns_name_options {
     enable_resource_name_dns_a_record = true
   }
-  security_groups = var.security_groups
-  key_name        = var.key_name
-  instance_type   = var.instance_type
+  vpc_security_group_ids = var.vpc_security_group_ids
+  key_name               = var.key_name
+  instance_type          = var.instance_type
   tags = {
     Name = "${var.tags_instance}${count.index + 1}.aureliomalheiros.tech"
   }

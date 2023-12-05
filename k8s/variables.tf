@@ -41,7 +41,7 @@ variable "worker_count" {
   default     = 1
 }
 
-variable "security_groups" {
+variable "vpc_security_group_ids" {
   description = "List of security group IDs to enable on the EC2 instance"
   type        = list(string)
   default     = []
