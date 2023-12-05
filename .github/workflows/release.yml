@@ -21,13 +21,6 @@ jobs:
           WITH_V: true
           DEFAULT_BUMP: patch
           PRERELEASE: true
-  create_release:
-    name: Create Release
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
