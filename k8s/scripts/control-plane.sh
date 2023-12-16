@@ -56,11 +56,11 @@ sudo apt-get update && \
 sudo apt-get install -y kubelet kubeadm kubectl 
 sudo apt-mark hold kubelet kubeadm kubectl 
 
-kubeadm init --apiserver-advertise-address=0.0.0.0
+sudo kubeadm init --apiserver-advertise-address=0.0.0.0
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-kubeadm token create --print-join-command
+kubeadm token create --print-join-command >> /opt/kubernetes.sh
 kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml

@@ -13,6 +13,7 @@ resource "aws_instance" "k8s_instance_control_plane" {
   vpc_security_group_ids = var.vpc_security_group_ids
   key_name               = var.key_name
   instance_type          = var.instance_type
+  user_data              = file("${path.module}/scripts/control-plane.sh")
   tags = {
     Name = "k8s-instance-control-plane.aureliomalheiros.tech"
 
@@ -35,6 +36,7 @@ resource "aws_instance" "k8s_instance_workers" {
   vpc_security_group_ids = var.vpc_security_group_ids
   key_name               = var.key_name
   instance_type          = var.instance_type
+  user_data              = file("${path.module}/scripts/workers.sh")
   tags = {
     Name = "${var.tags_instance}${count.index + 1}.aureliomalheiros.tech"
   }
