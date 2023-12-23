@@ -51,3 +51,70 @@ variable "subnet_id" {
   description = "ID of the my subnet"
   type        = string
 }
+
+
+#Variables of the file network.tf 
+variable "tags_network" {
+  description = "A mapping of tags to assign to the network"
+  type        = map(string)
+  default     = {}
+}
+variable "number_subnets" {
+  description = "The number of subnet in the project"
+  type        = number
+}
+
+#Variable to security group
+
+variable "security_groups" {
+  description = "A map of security groups"
+  type = map(object({
+    name        = string
+    description = string
+    ingress = list(object({
+      description      = string
+      from_port        = number
+      to_port          = number
+      protocol         = string
+      cidr_blocks      = list(string)
+      ipv6_cidr_blocks = list(string)
+      prefix_list_ids  = list(string)
+      security_groups  = list(string)
+    }))
+    egress = list(object({
+      description      = string
+      from_port        = number
+      to_port          = number
+      protocol         = string
+      cidr_blocks      = list(string)
+      ipv6_cidr_blocks = list(string)
+      prefix_list_ids  = list(string)
+      security_groups  = list(string)
+    }))
+    tags = map(string)
+  }))
+  default = {}
+}
+
+variable "network_acl" {
+  description = "A map of network acl"
+  type = map(object({
+    egress = list(object({
+      protocol   = string
+      rule_no    = number
+      action     = string
+      cidr_block = string
+      from_port  = number
+      to_port    = number
+    }))
+    ingress = list(object({
+      protocol   = string
+      rule_no    = number
+      action     = string
+      cidr_block = string
+      from_port  = number
+      to_port    = number
+    }))
+    tags = map(string)
+  }))
+}
