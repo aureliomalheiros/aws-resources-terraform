@@ -1,4 +1,5 @@
 #!/bin/bash
+
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
@@ -62,5 +63,5 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-kubeadm token create --print-join-command
+kubeadm token create --print-join-command > /home/ubuntu/token
 kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
