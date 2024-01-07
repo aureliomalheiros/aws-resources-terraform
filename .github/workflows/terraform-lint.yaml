@@ -1,8 +1,7 @@
 name: Pre-commit Terraform
 
 on:
-  push:
-    branches: main
+  pull_request:
     paths:
       - '**.tf'
 
