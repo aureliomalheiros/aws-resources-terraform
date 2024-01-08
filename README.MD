@@ -110,3 +110,7 @@ This local variable defines the configuration for an IAM role.
 - policy allows the "ec2.amazonaws.com" service to assume the role
 - policy_arn: The Amazon Resource Name (ARN) of the policy to attach to the IAM role. In this case, the policy grants full access to Amazon S3
   
+
+#### Diagram
+
+![Diagram](img/cluster-k8s.png)
