@@ -1,3 +1,5 @@
+# AWS Resources with Terraform
+
 ## Requirements
 
 [![Pre-commit Terraform](https://github.com/aureliomalheiros/aws-modules-terraform/actions/workflows/terraform-lint.yaml/badge.svg?branch=main)](https://github.com/aureliomalheiros/aws-modules-terraform/actions/workflows/terraform-lint.yaml)
@@ -5,67 +7,110 @@
 [![Stable Version](https://img.shields.io/github/v/tag/aureliomalheiros/aws-modules-terraform)](https://img.shields.io/github/v/tag/aureliomalheiros/aws-modules-terraform)
 [![Latest Release](https://img.shields.io/github/v/release/aureliomalheiros/aws-modules-terraform?color=%233D9970)](https://img.shields.io/github/v/release/aureliomalheiros/aws-modules-terraform?color=%233D9970)
 
-
----
-**K8S**
 ---
 
-I created folders to apply resources.
+### K8S Cluster Hello World
 
-## Providers
+This repository contains Terraform configurations to set up AWS resources, including EC2 instances for a Kubernetes control plane and worker nodes.
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+#### Prerequisites
 
-## Modules
+- Terraform 0.14+
+- AWS account
+- Private key
 
-No modules.
+---
 
-## Resources
+#### Usage
 
-| Name | Type |
-|------|------|
-| [aws_instance.k8s_instance_control_plane](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
-| [aws_instance.k8s_instance_workers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
-| [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+> Create private key:
 
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | Associate a public ip address with an instance in a VPC | `bool` | `true` | no |
-| <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The availability zone to create the instance in | `string` | n/a | yes |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The type of instance to start | `string` | n/a | yes |
-| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The key name to use for the instance | `string` | n/a | yes |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | ID of the my subnet | `string` | n/a | yes |
-| <a name="input_tags_instance"></a> [tags\_instance](#input\_tags\_instance) | A mapping of tags to assign to the resource | `string` | n/a | yes |
-| <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | The size of the volume in gigabytes | `number` | `10` | no |
-| <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | The type of the volume | `string` | `"gp3"` | no |
-| <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | List of security group IDs to enable on the EC2 instance | `list(string)` | `[]` | no |
-| <a name="input_worker_count"></a> [worker\_count](#input\_worker\_count) | Number instances of workers | `number` | `1` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_control_plane_instance_id"></a> [control\_plane\_instance\_id](#output\_control\_plane\_instance\_id) | The ID of the control plane instance |
-| <a name="output_control_plane_public_ip"></a> [control\_plane\_public\_ip](#output\_control\_plane\_public\_ip) | The public IP address of the control plane instance |
-| <a name="output_worker_instance_ids"></a> [worker\_instance\_ids](#output\_worker\_instance\_ids) | The IDs of the worker instances |
-| <a name="output_worker_public_ips"></a> [worker\_public\_ips](#output\_worker\_public\_ips) | The public IP addresses of the worker instances |
-
-## Example
-
-```terraform 
-module "k8s" {
-  source                 = "git@github.com:aureliomalheiros/aws-modules-terraform.git//k8s"
-  worker_count           = NUMEBERS_OF_WORKERS
-  key_name               = "YOUR_PEM"
-  availability_zone      = "us-east-1a"
-  instance_type          = "TYPE"
-  tags_instance          = "CREATE_TAG_OR_TAGS"
-  subnet_id              = "SUBNET_ID"
-  vpc_security_group_ids = ["SG_ID]
-}
-
+```bash
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/NAME_YOUR_SSH_KEY
 ```
+
+Create file `.PEM`:
+
+```bash
+cp ~/.ssh/NAME_YOUR_SSH_KEY NAME_YOUR_SSH_KEY.pem
+```
+
+> [!Note]
+> The file .pem use to connect services in AWS
+
+> Navigate to the directory
+
+```bash
+cd aws-resources-terraform/k8s
+```
+
+> Initialize, plan and apply:
+
+```bash
+terraform init
+```
+
+``` bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
+
+---
+
+### Local values
+
+In the `locals.tf` file, two local configurations are defined for worker and control plane instances on AWS EC2 using Terraform.
+
+#### instances_workers
+
+This local variable defines the configuration for the Kubernetes worker instances. It includes the following keys:
+
+- ami: ID of the Amazon Machine Image (AMI) to be used for the instances
+- worker_count: Number of worker instances to be created
+- availability_zone: Availability zone in which the instances will be created
+- subnet_id: ID of the subnet in which the instances will be created
+- associate_public_ip_address: Whether the instances should have a public IP address associated
+- volume_size: Size of the volume in GB
+- volume_type: Type of the volume
+- enable_dns_a_record: Whether a DNS record should be created for the instances
+- vpc_security_group_ids: IDs of the security groups to be associated with the instances
+- instance_type: Type of instance to be created
+- tags: Tags to be associated with the instances
+- config_workers: Commands to be executed on the worker instances
+- shared_token: Commands to install the AWS CLI and copy a script from S3
+- connect_cluster: Command to run the script downloaded from S3
+
+#### instances_control_plane
+
+This local variable defines the configuration for the Kubernetes control plane instances. It includes the following keys:
+
+- ami: ID of the Amazon Machine Image (AMI) to be used for the instances
+- availability_zone: Availability zone in which the instances will be created
+- subnet_id: ID of the subnet in which the instances will be created
+- associate_public_ip_address: Whether the instances should have a public IP address associated
+- volume_size: Size of the volume in GB
+- volume_type: Type of the volume
+- enable_dns_a_record: Whether a DNS record should be created for the instances
+- vpc_security_group_ids: IDs of the security groups to be associated with the instances
+- instance_type: Type of instance to be created
+- tags: Tags to be associated with the instances
+
+#### bucket
+
+This local variable defines the configuration for an S3 bucket, when storage token connection cluster.
+
+- name: The name of the S3 bucket
+- tags: Metadata to assign to the S3 bucket
+
+#### Iam
+
+This local variable defines the configuration for an IAM role.
+
+- Name: The name of the IAM role
+- assume_role_policy: The policy that grants an entity permission to assume the role. In this case, the
+- policy allows the "ec2.amazonaws.com" service to assume the role
+- policy_arn: The Amazon Resource Name (ARN) of the policy to attach to the IAM role. In this case, the policy grants full access to Amazon S3
+  
