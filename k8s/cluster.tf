@@ -51,13 +51,13 @@ resource "aws_instance" "k8s_instance_workers" {
   vpc_security_group_ids = local.instances_workers.vpc_security_group_ids
   key_name               = aws_key_pair.k8s.key_name
   instance_type          = local.instances_workers.instance_type
-  tags                   = merge(
+  tags = merge(
     local.instances_workers.tags,
     {
       "Name" = format("k8s-instance-workers-%d", count.index)
     }
   )
-  iam_instance_profile   = aws_iam_instance_profile.this.name
+  iam_instance_profile = aws_iam_instance_profile.this.name
 
   connection {
     type        = "ssh"
