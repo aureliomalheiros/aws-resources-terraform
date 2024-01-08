@@ -19,8 +19,6 @@ This repository contains Terraform configurations to set up AWS resources, inclu
 - AWS account
 - Private key
 
----
-
 #### Usage
 
 > Create private key:
@@ -57,8 +55,6 @@ terraform plan
 ```bash
 terraform apply
 ```
-
----
 
 ### Local values
 
