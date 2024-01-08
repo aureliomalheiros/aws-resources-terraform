@@ -28,7 +28,7 @@ sudo apt install \
 
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-	sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
@@ -57,11 +57,11 @@ sudo apt-get update && \
 sudo apt-get install -y kubelet kubeadm kubectl 
 sudo apt-mark hold kubelet kubeadm kubectl 
 
-kubeadm init --apiserver-advertise-address=0.0.0.0
+sudo kubeadm init --apiserver-advertise-address=0.0.0.0
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+sudo kubeadm token create --print-join-command > /home/ubuntu/token.sh
 
-kubeadm token create --print-join-command > /home/ubuntu/token
-kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+sudo mkdir -p /home/ubuntu/.kube
+sudo cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
+sudo chown ubuntu:ubuntu /home/ubuntu/.kube/config
+
