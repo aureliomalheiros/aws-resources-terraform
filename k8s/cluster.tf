@@ -17,7 +17,7 @@ resource "aws_instance" "k8s_instance_control_plane" {
   iam_instance_profile   = aws_iam_instance_profile.this.name
   connection {
     type        = "ssh"
-    user        = "ubuntu"
+    user        = "admin"
     agent       = false
     private_key = file("~/.ssh/terraform")
     host        = self.public_ip
@@ -61,7 +61,7 @@ resource "aws_instance" "k8s_instance_workers" {
 
   connection {
     type        = "ssh"
-    user        = "ubuntu"
+    user        = "admin"
     agent       = false
     private_key = file("~/.ssh/terraform")
     host        = self.public_ip

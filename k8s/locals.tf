@@ -1,7 +1,7 @@
 locals {
   instances_workers = {
     ami                         = data.aws_ami.ubuntu.id
-    worker_count                = 1
+    worker_count                = 0
     availability_zone           = "us-east-1a"
     subnet_id                   = "subnet-03bda73c3706511b9"
     associate_public_ip_address = true
